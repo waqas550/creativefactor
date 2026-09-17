@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import bg from '@/public/images/bgsections.jpg';
-import partn1 from '@/public/images/partners/partner1.png';
-import partn2 from '@/public/images/partners/partner2.png';
+import partn1 from '@/public/images/partners/partner1.webp';
+import partn2 from '@/public/images/partners/partner2.webp';
 
 interface Partner {
   id: number;
