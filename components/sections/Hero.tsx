@@ -8,24 +8,9 @@ import twitterIcon from '@/public/images/icons/twittericon.png';
 import instaIcon from '@/public/images/icons/instaicon.png';
 import youtubeIcon from '@/public/images/icons/youtubeicon.png';
 
-import cas1 from '@/public/images/hero/cas1.jpg';
-import cas2 from '@/public/images/hero/cas2.jpg';
-import cas3 from '@/public/images/hero/cas3.jpg';
-import cas4 from '@/public/images/hero/cas4.jpg';
-import cas5 from '@/public/images/hero/cas5.jpg';
-import cas6 from '@/public/images/hero/cas6.jpg';
-import cas7 from '@/public/images/hero/cas7.jpg';
-import cas8 from '@/public/images/hero/cas8.jpg';
-import cas9 from '@/public/images/hero/cas9.jpg';
-import cas10 from '@/public/images/hero/cas10.jpg';
-import cas11 from '@/public/images/hero/cas11.jpg';
-import cas12 from '@/public/images/hero/cas12.jpg';
-import cas13 from '@/public/images/hero/cas13.jpg';
-import cas14 from '@/public/images/hero/cas14.jpg';
-import cas15 from '@/public/images/hero/cas15.jpg';
-import cas16 from '@/public/images/hero/cas16.jpg';
-
-const images = [cas1, cas2, cas3, cas4, cas5, cas6, cas7, cas8, cas9, cas10, cas11, cas12, cas13, cas14, cas15, cas16];
+// Plain URLs instead of static imports: 16 imported image modules slowed down
+// bundling/compiling without any benefit (dimensions are irrelevant with fill).
+const images = Array.from({ length: 16 }, (_, i) => `/images/hero/cas${i + 1}.jpg`);
 
 const socialLinks = [
   { icon: fbIcon, href: 'https://facebook.com', label: 'Facebook' },
@@ -42,8 +27,31 @@ const SocialLink = memo(({ icon, href, label }: { icon: StaticImageData; href: s
 
 SocialLink.displayName = 'SocialLink';
 
+// All slides stay mounted as stacked layers; the active one is faded in via
+// opacity. Swapping src on a single img (old approach) re-fetched every slide
+// and repainted without a fade, which read as lag on the front page.
+const HeroSlide = memo(({ src, active, priority }: { src: string; active: boolean; priority?: boolean }) => (
+  <Image
+    src={src}
+    alt=""
+    fill
+    priority={priority}
+    sizes="100vw"
+    aria-hidden={!active}
+    className="object-cover transition-opacity duration-1000 ease-in-out"
+    style={{ opacity: active ? 1 : 0 }}
+  />
+));
+
+HeroSlide.displayName = 'HeroSlide';
+
+const PRELOAD_STEP_MS = 500;
+
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // Warm the image optimizer progressively (one slide at a time) instead of
+  // letting every slide hit the cold optimization path on first show.
+  const [preloadedCount, setPreloadedCount] = useState(1);
 
   const next = useCallback(() => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -54,16 +62,21 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [next]);
 
+  useEffect(() => {
+    if (preloadedCount >= images.length) return;
+    const timer = setTimeout(() => setPreloadedCount((count) => count + 1), PRELOAD_STEP_MS);
+    return () => clearTimeout(timer);
+  }, [preloadedCount]);
+
+  const renderedCount = Math.max(preloadedCount, currentImageIndex + 1);
+
   return (
     <div className="relative w-full h-screen overflow-hidden mt-[-6rem]">
-      <Image
-        src={images[currentImageIndex]}
-        alt="Hero"
-        priority
-        fill
-        className="object-cover transition-opacity duration-1000"
-        sizes="100vw"
-      />
+      <div className="absolute inset-0">
+        {images.slice(0, renderedCount).map((src, index) => (
+          <HeroSlide key={src} src={src} active={index === currentImageIndex} priority={index === 0} />
+        ))}
+      </div>
       {/* Dark gradient overlay for legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black opacity-0"></div>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
