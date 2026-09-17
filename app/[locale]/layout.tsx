@@ -42,7 +42,7 @@ export default async function LocaleLayout({
           <div style={{ minHeight: '100vh' }}>
             <Navbar currentLocale={locale} />
             <main>{children}</main>
-            <Footer currentLocale={locale} />
+            <Footer />
           </div>
         </NextIntlClientProvider>
       </body>
