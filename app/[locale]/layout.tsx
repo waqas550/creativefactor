@@ -35,6 +35,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={poppins.variable}>
       <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/svg+xml" href="/prge.svg" />
       </head>
       <body style={{ backgroundColor: '#000000', minHeight: '100vh' }}>
