@@ -74,6 +74,12 @@ const EventCard = ({ title, image, onClick }: EventCardProps) => {
           {title}
         </p>
       </div>
+      {/* Always-visible caption on touch devices (no hover available) */}
+      <div className="touch-caption absolute inset-x-0 bottom-0 z-10">
+        <div className="bg-gradient-to-t from-black/90 via-black/50 to-transparent px-3 pb-3 pt-10 text-center">
+          <p className="text-white text-lg font-semibold">{title}</p>
+        </div>
+      </div>
       <style jsx>{`
         .with-mask {
           mask-image: url(${mask.src});

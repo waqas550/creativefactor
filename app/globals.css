@@ -658,3 +658,14 @@ body {
   -webkit-mask-image: url('/images/events/aevemask.webp');
   -webkit-mask-size: cover;
 }
+
+/* Card title captions: shown only on touch devices, where hover is unavailable */
+.touch-caption {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .touch-caption {
+    display: block;
+  }
+}
