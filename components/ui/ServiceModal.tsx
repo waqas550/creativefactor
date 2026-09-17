@@ -1,11 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Image from 'next/image';
-
-import nextIcon from '@/public/images/icons/nexticon.webp';
-import prevIcon from '@/public/images/icons/previousicon.webp';
-import exitIcon from '@/public/images/icons/closeicon.webp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface Service {
   id: number;
@@ -66,13 +63,13 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
 
         <div className="modal-nav">
           <button className="modal-nav-btn" onClick={onPrev} aria-label="Previous" type="button">
-            <Image src={prevIcon} alt="Previous" width={28} height={28} />
+            <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-secondary" />
           </button>
           <button className="modal-nav-btn modal-nav-btn--close" onClick={onClose} aria-label="Close" type="button">
-            <Image src={exitIcon} alt="Close" width={28} height={28} />
+            <FontAwesomeIcon icon={faXmark} className="text-2xl text-secondary" />
           </button>
           <button className="modal-nav-btn" onClick={onNext} aria-label="Next" type="button">
-            <Image src={nextIcon} alt="Next" width={28} height={28} />
+            <FontAwesomeIcon icon={faChevronRight} className="text-xl text-secondary" />
           </button>
         </div>
       </div>
