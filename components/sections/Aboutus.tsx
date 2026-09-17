@@ -39,15 +39,14 @@ const Aboutus = () => {
     <div>
       <section className="py-16">
         <div
-          className="container mx-auto px-4 sm:px-8 rounded-lg shadow-lg bg-white p-6 sm:p-8 w-full sm:w-10/12 flex lg:flex-row flex-col-reverse items-center"
+          className="container mx-auto px-4 sm:px-8 rounded-lg overflow-hidden shadow-lg bg-white p-6 sm:p-8 w-full sm:w-10/12 flex lg:flex-row flex-col-reverse items-center"
           style={{ backgroundImage: `url(${bg.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-          <div className="w-full lg:w-1/3 mt-4 lg:mt-0 lg:-ml-24 xl:-ml-32">
+          <div className="w-full lg:w-1/3 mt-4 lg:mt-0">
             <Image
               src={abp1}
               alt="AboutPage"
-              className="mx-auto lg:ml-0 lg:mr-auto rounded-lg w-full"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              className="rounded-lg w-full lg:w-[125%] lg:-ml-[12.5%] max-w-none"
             />
           </div>
           <div className="w-full lg:w-1/2 text-center lg:text-center">
@@ -69,12 +68,11 @@ const Aboutus = () => {
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-1/3 mt-4 lg:mb-0 lg:-mr-24 xl:-mr-32">
+          <div className="w-full lg:w-1/3 mt-4 lg:mb-0">
             <Image
               src={abp2}
               alt="AboutPage"
-              className="mx-auto lg:ml-0 lg:mr-auto rounded-lg w-full"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              className="rounded-lg w-full lg:w-[125%] lg:-ml-[12.5%] max-w-none"
             />
           </div>
         </div>
