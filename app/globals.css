@@ -641,9 +641,9 @@ body {
 
 /* CSS Modules replacements for styled-jsx */
 .with-mask {
-  mask-image: url('/images/services/sservmask.png');
+  mask-image: url('/images/services/sservmask.webp');
   mask-size: cover;
-  -webkit-mask-image: url('/images/services/sservmask.png');
+  -webkit-mask-image: url('/images/services/sservmask.webp');
   -webkit-mask-size: cover;
 }
 
