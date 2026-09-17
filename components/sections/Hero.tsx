@@ -27,16 +27,19 @@ const SocialLink = memo(({ icon, href, label }: { icon: StaticImageData; href: s
 
 SocialLink.displayName = 'SocialLink';
 
-// All slides stay mounted as stacked layers; the active one is faded in via
-// opacity. Swapping src on a single img (old approach) re-fetched every slide
-// and repainted without a fade, which read as lag on the front page.
+// Slides stay mounted as stacked layers once loaded; the active one is faded
+// in via opacity. Only the current slide and the next two are mounted at a
+// time, so phones download roughly one small image per 5s interval instead of
+// the whole set up front — an image then has ~10s to load before its turn.
 const HeroSlide = memo(({ src, active, priority }: { src: string; active: boolean; priority?: boolean }) => (
   <Image
     src={src}
     alt=""
     fill
     priority={priority}
-    sizes="100vw"
+    // Cap large screens at the 1920px variant: a background carousel gains
+    // nothing from the 3840px files, which are ~3x heavier.
+    sizes="(max-width: 767px) 100vw, 1920px"
     aria-hidden={!active}
     className="object-cover transition-opacity duration-1000 ease-in-out"
     style={{ opacity: active ? 1 : 0 }}
@@ -45,33 +48,36 @@ const HeroSlide = memo(({ src, active, priority }: { src: string; active: boolea
 
 HeroSlide.displayName = 'HeroSlide';
 
-const PRELOAD_STEP_MS = 500;
+const SLIDE_INTERVAL_MS = 5000;
+const SLIDES_LOADED_AHEAD = 2;
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // Warm the image optimizer progressively (one slide at a time) instead of
-  // letting every slide hit the cold optimization path on first show.
-  const [preloadedCount, setPreloadedCount] = useState(1);
+  const [carouselPaused, setCarouselPaused] = useState(false);
 
   const next = useCallback(() => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(next, 5000);
+    if (carouselPaused) return;
+    const interval = setInterval(next, SLIDE_INTERVAL_MS);
     return () => clearInterval(interval);
-  }, [next]);
+  }, [next, carouselPaused]);
 
+  // Don't fetch or cycle slides in a hidden tab.
   useEffect(() => {
-    if (preloadedCount >= images.length) return;
-    const timer = setTimeout(() => setPreloadedCount((count) => count + 1), PRELOAD_STEP_MS);
-    return () => clearTimeout(timer);
-  }, [preloadedCount]);
+    const onVisibilityChange = () => setCarouselPaused(document.hidden);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
 
-  const renderedCount = Math.max(preloadedCount, currentImageIndex + 1);
+  // Monotonically non-decreasing: loaded layers stay mounted (cached by the
+  // browser), so after one full loop nothing ever loads again.
+  const renderedCount = Math.min(images.length, currentImageIndex + 1 + SLIDES_LOADED_AHEAD);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden mt-[-6rem]">
+    <div className="relative w-full h-svh overflow-hidden mt-[-6rem]">
       <div className="absolute inset-0">
         {images.slice(0, renderedCount).map((src, index) => (
           <HeroSlide key={src} src={src} active={index === currentImageIndex} priority={index === 0} />
