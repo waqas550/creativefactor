@@ -1,16 +1,39 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import PageHeader from '@/components/layout/Pageheader';
 import Aboutus from '@/components/sections/Aboutus';
 
-// Strip HTML tags from a translation so it can be used as a plain-text meta description
 const stripHtml = (value: string) => value.replace(/<[^>]*>/g, '').trim();
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+// Search engines truncate meta descriptions around 155-160 characters
+const toMetaDescription = (value: string) =>
+  value.length > 158 ? `${value.slice(0, 155).trimEnd()}…` : value;
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'abus' });
+  const heading = t('heading');
+  const description = toMetaDescription(stripHtml(t.raw('paragraph1')));
 
   return {
-    title: `${t('heading')} - The Creative Factor`,
-    description: stripHtml(t.raw('paragraph1')),
+    title: `${heading} - The Creative Factor`,
+    description,
+    alternates: {
+      canonical: `/${locale}/about`,
+      languages: {
+        de: '/de/about',
+        en: '/en/about',
+      },
+    },
+    openGraph: {
+      title: `${heading} - The Creative Factor`,
+      description,
+      locale,
+      type: 'website',
+    },
   };
 }
 

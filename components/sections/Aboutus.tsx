@@ -3,6 +3,8 @@
 import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import bg from '@/public/images/bgsections.webp';
 import abp1 from '@/public/images/abp11.webp';
@@ -45,7 +47,7 @@ const Aboutus = () => {
           <div className="w-full lg:w-1/3 mt-4 lg:mt-0">
             <Image
               src={abp1}
-              alt="AboutPage"
+              alt={`${t('heading')} - event impressions by The Creative Factor`}
               className="rounded-lg w-full lg:w-[125%] lg:-ml-[12.5%] max-w-none"
             />
           </div>
@@ -61,8 +63,9 @@ const Aboutus = () => {
                   key={index}
                   href={`/pdf/${locale}/${locale === 'de' ? file.de : file.en}`}
                   download
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition duration-250"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition duration-250 inline-flex items-center gap-2"
                 >
+                  <FontAwesomeIcon icon={faDownload} className="text-sm" />
                   {t(`button${index + 1}`)}
                 </a>
               ))}
@@ -71,7 +74,7 @@ const Aboutus = () => {
           <div className="w-full lg:w-1/3 mt-4 lg:mb-0">
             <Image
               src={abp2}
-              alt="AboutPage"
+              alt={`${t('heading')} - show and dance performances by The Creative Factor`}
               className="rounded-lg w-full lg:w-[125%] lg:-ml-[12.5%] max-w-none"
             />
           </div>
