@@ -166,7 +166,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-black/50 border border-dimBlue/50 flex items-center justify-center text-dimWhite hover:bg-blue-gradient hover:text-primary hover:border-transparent transition-all duration-300 hover:scale-110"
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-black/50 border border-dimBlue/50 flex items-center justify-center text-dimWhite hover:bg-secondary hover:text-primary hover:border-transparent transition-all duration-300 hover:scale-110"
                       >
                         <FontAwesomeIcon icon={social.icon} className="text-sm sm:text-base" />
                       </a>
