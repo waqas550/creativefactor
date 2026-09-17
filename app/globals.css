@@ -577,9 +577,11 @@ body {
   height: 3.7rem;
 }
 
+/* Height-based sizing keeps the SVG at its natural ratio — forcing a wider
+   box stretched the artwork and added dead space on the left */
 .logo {
-  width: 33rem;
-  height: 8.5rem;
+  height: 8rem;
+  width: auto;
 }
 
 @media (max-width: 768px) {
@@ -589,8 +591,8 @@ body {
   }
 
   .logo {
-    width: 20rem;
-    height: auto;
+    height: 5rem;
+    width: auto;
   }
 }
 
@@ -599,8 +601,9 @@ body {
 }
 
 .active-link {
-  font-weight: bold;
-  color: #00f;
+  color: #00f6ff;
+  font-weight: 600;
+  border-bottom: 2px solid #00f6ff;
 }
 
 .nav-links .icon-link:hover {

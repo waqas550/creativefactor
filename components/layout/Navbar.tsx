@@ -12,12 +12,12 @@ import hfbg from '@/public/images/hfbg.webp';
 import logo from '@/public/images/logonav.svg';
 
 const navLinks = [
-  { id: '', title: 'home' },
+  // { id: '', title: 'home' },            // hidden for now — the logo links home
   { id: 'about', title: 'about' },
   { id: 'services', title: 'services' },
   { id: 'events', title: 'events' },
-  { id: 'news', title: 'news' },
-  { id: 'partners', title: 'partners' },
+  // { id: 'news', title: 'news' },        // hidden for now — coming later
+  // { id: 'partners', title: 'partners' }, // hidden for now — coming later
   { id: 'contact', title: 'contact' },
 ];
 
@@ -73,12 +73,12 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden md:flex space-x-3 text-lg xl:text-2xl xl:mr-52">
+        <div className="hidden md:flex items-center gap-4 xl:gap-7 text-lg xl:text-2xl">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
-              className={`hover:text-blue-300 ${
+              className={`hover:text-secondary transition-colors ${
                 isActive(link.id) ? 'active-link' : 'text-white'
               }`}
             >
@@ -108,8 +108,10 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
             <Link
               key={link.id}
               href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
-              className={`block mb-4 p-2 text-center text-xl hover:text-blue-300 ${
-                isActive(link.id) ? 'bg-gray-600' : 'text-white'
+              className={`block mb-1 px-4 py-2.5 mx-6 rounded-lg text-center text-lg transition-colors ${
+                isActive(link.id)
+                  ? 'bg-secondary/15 text-secondary'
+                  : 'text-white hover:text-secondary hover:bg-white/5'
               }`}
               onClick={closeMenu}
             >
