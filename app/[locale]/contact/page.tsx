@@ -19,8 +19,7 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-
-import hfbg from '@/public/images/hfbg.webp';
+import PageHeader from '@/components/layout/Pageheader';
 
 export default function ContactPage() {
   const t = useTranslations('contact');
@@ -95,37 +94,17 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section
-        className="hero min-h-[35vh] sm:min-h-[40vh] flex flex-col justify-center items-center text-center px-4"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${hfbg.src})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="container mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            {t('title') || 'Kontakt'}
-          </h1>
-          <div className="w-20 sm:w-24 h-1 bg-blue-gradient mx-auto rounded-full"></div>
-        </div>
-      </section>
+      <PageHeader />
 
       {/* Contact Content - Side by Side Layout */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-
             {/* Left Column - Company Info */}
             <div className="space-y-6">
-              {/* Main Info Card */}
               <div className="bg-primary/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-dimBlue h-full">
-                {/* Logo and Title */}
+                {/* Company Title */}
                 <div className="text-center lg:text-left mb-8">
-                  
                   <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                     THE CREATIVE FACTOR
                   </h2>
@@ -142,8 +121,8 @@ export default function ContactPage() {
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="flex items-start gap-4 p-3 sm:p-4 rounded-xl bg-black/30 border border-dimBlue/30 hover:border-secondary/50 hover:bg-black/40 transition-all duration-300 group"
                     >
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-gradient flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                        <FontAwesomeIcon icon={item.icon} className="text-primary text-sm sm:text-base" />
+                      <div className="w-11 h-11 rounded-xl bg-secondary/10 border border-secondary/40 text-secondary flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-secondary/20 transition-all duration-300">
+                        <FontAwesomeIcon icon={item.icon} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs sm:text-sm text-dimWhite/70 mb-1">{item.label}</p>
@@ -166,9 +145,9 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-black/50 border border-dimBlue/50 flex items-center justify-center text-dimWhite hover:bg-secondary hover:text-primary hover:border-transparent transition-all duration-300 hover:scale-110"
+                        className="w-10 h-10 rounded-full border border-secondary/60 text-secondary flex items-center justify-center hover:bg-secondary/10 hover:scale-110 transition-all duration-300"
                       >
-                        <FontAwesomeIcon icon={social.icon} className="text-sm sm:text-base" />
+                        <FontAwesomeIcon icon={social.icon} />
                       </a>
                     ))}
                   </div>
@@ -192,8 +171,8 @@ export default function ContactPage() {
             {/* Right Column - Contact Form */}
             <div className="bg-primary/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-dimBlue">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-gradient flex items-center justify-center">
-                  <FontAwesomeIcon icon={faPaperPlane} className="text-primary text-sm sm:text-base" />
+                <div className="w-11 h-11 rounded-xl bg-secondary/10 border border-secondary/40 text-secondary flex items-center justify-center flex-shrink-0">
+                  <FontAwesomeIcon icon={faPaperPlane} />
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-semibold text-white">
