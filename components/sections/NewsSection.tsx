@@ -16,19 +16,19 @@ const NewsSection = () => {
       title: 'Breaking News 1',
       date: 'August 10, 2023',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida eget turpis et ultricies.',
-      image: '/images/hero/cas1.jpg',
+      image: '/images/hero/cas1.webp',
     },
     {
       title: 'Breaking News 2',
       date: 'September 15, 2023',
       description: 'Nulla consectetur mi vel metus consectetur, at venenatis odio tincidunt.',
-      image: '/images/hero/cas2.jpg',
+      image: '/images/hero/cas2.webp',
     },
     {
       title: 'Breaking News 3',
       date: 'October 20, 2023',
       description: 'Proin vestibulum libero in nisi euismod, eu posuere odio aliquet.',
-      image: '/images/hero/cas3.jpg',
+      image: '/images/hero/cas3.webp',
     },
   ];
 

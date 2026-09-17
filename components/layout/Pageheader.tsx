@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
-import phead from '@/public/images/hero/banner.jpg';
+import phead from '@/public/images/hero/banner.webp';
 
 const PageHeader = () => {
   const pathname = usePathname();
@@ -20,7 +20,9 @@ const PageHeader = () => {
       <Image
         src={phead}
         alt="Page Header"
-        className="object-cover w-full h-full"
+        fill
+        sizes="100vw"
+        className="object-cover"
         priority
       />
       <div className="gradient-overlay absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>

@@ -10,7 +10,7 @@ import youtubeIcon from '@/public/images/icons/youtubeicon.png';
 
 // Plain URLs instead of static imports: 16 imported image modules slowed down
 // bundling/compiling without any benefit (dimensions are irrelevant with fill).
-const images = Array.from({ length: 16 }, (_, i) => `/images/hero/cas${i + 1}.jpg`);
+const images = Array.from({ length: 16 }, (_, i) => `/images/hero/cas${i + 1}.webp`);
 
 const socialLinks = [
   { icon: fbIcon, href: 'https://facebook.com', label: 'Facebook' },
