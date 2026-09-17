@@ -3,9 +3,11 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 import bgsections from '@/public/images/bgsections.webp';
+import aboutImg from '@/public/images/aboutsection.webp';
 
 const AboutSection = () => {
   const t = useTranslations('home');
@@ -15,14 +17,21 @@ const AboutSection = () => {
   return (
     <section className="py-16">
       <div
-        className="container mx-auto px-4 sm:px-8 rounded-lg overflow-hidden shadow-lg p-6 sm:p-8 w-full sm:w-10/12 flex flex-col items-center"
+        className="container mx-auto px-4 sm:px-8 rounded-lg overflow-hidden shadow-lg p-6 sm:p-8 w-full sm:w-10/12 flex flex-col lg:flex-row items-center"
         style={{
           backgroundImage: `url(${bgsections.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="w-full lg:w-1/2 text-center lg:text-center">
+        <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
+          <Image
+            src={aboutImg}
+            alt="About The Creative Factor"
+            className="mx-auto rounded-lg w-full lg:w-[90%]"
+          />
+        </div>
+        <div className="w-full lg:w-1/2 text-center lg:text-left">
           <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">
             {t('aboutHeading')}
           </h2>
@@ -32,7 +41,7 @@ const AboutSection = () => {
             })}
           </p>
 
-          <div className="flex justify-center lg:justify-center">
+          <div className="flex justify-center lg:justify-start">
             <Link
               href={`/${locale}/about`}
               className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded mr-3 transition duration-250"
