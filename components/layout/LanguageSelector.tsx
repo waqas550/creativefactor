@@ -3,9 +3,6 @@
 import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import enicon from '@/public/images/icons/enicon.png';
-import deicon from '@/public/images/icons/deicon.png';
-
 interface LanguageSelectorProps {
   currentLocale: string;
 }
@@ -35,12 +32,10 @@ const LanguageSelector = ({ currentLocale }: LanguageSelectorProps) => {
       <a
         href={newPath}
         onClick={handleLanguageSwitch}
-        className="language-button cursor-pointer"
+        aria-label={currentLocale === 'de' ? 'Switch to English' : 'Zur deutschen Version wechseln'}
+        className="w-12 h-12 rounded-full border-2 border-secondary text-secondary flex items-center justify-center font-semibold text-lg tracking-wide hover:bg-secondary/10 hover:scale-110 transition-all"
       >
-        <img
-          src={currentLocale === 'de' ? enicon.src : deicon.src}
-          alt={currentLocale === 'de' ? 'English Icon' : 'Deutsch Icon'}
-        />
+        {currentLocale === 'de' ? 'EN' : 'DE'}
       </a>
     </div>
   );

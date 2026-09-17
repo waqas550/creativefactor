@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelector from './LanguageSelector';
 
 import hfbg from '@/public/images/hfbg.jpg';
 import logo from '@/public/images/logonav.svg';
-import menuIcon from '@/public/images/icons/menuicon.png';
-import closeIcon from '@/public/images/icons/closeicon.png';
 
 const navLinks = [
   { id: '', title: 'home' },
@@ -63,13 +63,12 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         <div className="md:hidden p-4">
           <button
             onClick={toggleMenu}
-            className={`focus:outline-none ${menuOpen ? 'transform scale-110' : ''}`}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            className={`focus:outline-none w-10 h-10 rounded-full border-2 border-secondary text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors ${
+              menuOpen ? 'transform scale-110' : ''
+            }`}
           >
-            <img
-              src={menuOpen ? closeIcon.src : menuIcon.src}
-              alt="Menu"
-              className="h-8 w-8 icon icon-link"
-            />
+            <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} className="text-xl" />
           </button>
         </div>
 
