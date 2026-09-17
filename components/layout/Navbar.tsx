@@ -12,7 +12,7 @@ import hfbg from '@/public/images/hfbg.webp';
 import logo from '@/public/images/logonav.svg';
 
 const navLinks = [
-  // { id: '', title: 'home' },            // hidden for now — the logo links home
+  { id: '', title: 'home' },
   { id: 'about', title: 'about' },
   { id: 'services', title: 'services' },
   { id: 'events', title: 'events' },
@@ -53,7 +53,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <div className="flex items-center logo-container">
           <Link href={`/${currentLocale}`}>
             <img src={logo.src} alt="Logo" className="logo" />
@@ -72,8 +72,8 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
           </button>
         </div>
 
-        {/* Desktop navigation */}
-        <div className="hidden md:flex items-center gap-4 xl:gap-7 text-lg xl:text-2xl">
+        {/* Desktop navigation - pinned to the right, before the language selector */}
+        <div className="hidden md:flex items-center gap-4 xl:gap-7 text-lg xl:text-2xl ml-auto">
           {navLinks.map((link) => (
             <Link
               key={link.id}
