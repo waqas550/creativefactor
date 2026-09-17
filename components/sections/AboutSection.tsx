@@ -17,7 +17,7 @@ const AboutSection = () => {
   return (
     <section className="py-8">
       <div
-        className="container mx-auto px-8 rounded-lg lg:flex w-10/12 p-8"
+        className="container mx-auto px-8 rounded-lg overflow-hidden shadow-lg bg-white lg:flex w-10/12 p-8"
         style={{
           backgroundImage: `url(${bgsections.src})`,
           backgroundSize: 'cover',
