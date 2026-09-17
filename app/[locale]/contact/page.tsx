@@ -20,7 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
-import hfbg from '@/public/images/hfbg.jpg';
+import hfbg from '@/public/images/hfbg.webp';
 
 export default function ContactPage() {
   const t = useTranslations('contact');

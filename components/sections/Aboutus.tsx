@@ -4,9 +4,9 @@ import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 
-import bg from '@/public/images/bgsections.jpg';
-import abp1 from '@/public/images/abp11.png';
-import abp2 from '@/public/images/abp12.png';
+import bg from '@/public/images/bgsections.webp';
+import abp1 from '@/public/images/abp11.webp';
+import abp2 from '@/public/images/abp12.webp';
 
 // Downloadable documents, one entry per button; file names differ per locale
 // and must exist in public/pdf/<locale>/<fileName>

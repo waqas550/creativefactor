@@ -13,7 +13,7 @@ import {
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 import logo from '@/public/images/logonav.svg';
-import hfbg from '@/public/images/hfbg.jpg';
+import hfbg from '@/public/images/hfbg.webp';
 
 interface FooterProps {
   currentLocale?: string;

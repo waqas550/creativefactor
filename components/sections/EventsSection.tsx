@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
-import bgsections from '@/public/images/bgsections.jpg';
+import bgsections from '@/public/images/bgsections.webp';
 
 const EventsSection = () => {
   const t = useTranslations('home');

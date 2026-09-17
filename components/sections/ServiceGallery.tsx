@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import ServiceModal from '@/components/ui/ServiceModal';
 
-import bg from '@/public/images/bgsections.jpg';
+import bg from '@/public/images/bgsections.webp';
 import serv1 from '@/public/images/services/serv1.webp';
 import serv2 from '@/public/images/services/serv2.webp';
 import serv3 from '@/public/images/services/serv3.webp';
