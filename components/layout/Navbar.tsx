@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -38,13 +38,27 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
     setMenuOpen(false);
   };
 
+  // Close the mobile menu with Escape; lock the page behind the full-screen menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const isActive = (id: string) => {
     const path = id === '' ? `/${currentLocale}` : `/${currentLocale}/${id}`;
     return pathname === path || pathname === `/${currentLocale}${id === '' ? '' : `/${id}`}`;
   };
 
   return (
-    <nav className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30">
+    <>
+      <nav className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30">
       <div className="flex items-center">
         <div className="flex items-center logo-container">
           <Link href={`/${currentLocale}`}>
@@ -89,23 +103,27 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
 
       {/* Teal accent line along the bottom edge */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
+    </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div
-          className="bg-gray-700 md:hidden fixed left-0 w-full z-10"
-          style={{
-            backgroundImage: `linear-gradient(rgba(25, 25, 112, 0.2), rgba(25, 25, 112, 0.6)), url(${hfbg.src})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: '1',
-          }}
-        >
+    {/* Mobile menu - full-screen overlay. Rendered OUTSIDE the nav because the
+        nav's backdrop-filter would otherwise become the containing block for
+        this fixed element and squeeze it into the navbar's box. The navbar
+        (with the X button) stays on top via its higher z-index. */}
+    {menuOpen && (
+      <div
+        className="bg-gray-700 md:hidden fixed inset-0 z-30 overflow-y-auto flex flex-col pt-28 pb-8"
+        style={{
+          backgroundImage: `linear-gradient(rgba(25, 25, 112, 0.2), rgba(25, 25, 112, 0.6)), url(${hfbg.src})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="flex-1 flex flex-col items-center justify-center">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
-              className={`block mb-1 px-4 py-2.5 mx-6 rounded-lg text-center text-lg transition-colors ${
+              className={`block w-full px-4 py-2.5 text-center text-lg transition-colors ${
                 isActive(link.id)
                   ? 'bg-secondary/15 text-secondary'
                   : 'text-white hover:text-secondary hover:bg-white/5'
@@ -115,13 +133,14 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
               {t(`navbar.${link.title}`)}
             </Link>
           ))}
-
-          <div className="flex items-center justify-center p-4">
-            <LanguageSelector currentLocale={currentLocale} />
-          </div>
         </div>
-      )}
-    </nav>
+
+        <div className="flex items-center justify-center pb-4">
+          <LanguageSelector currentLocale={currentLocale} />
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 
