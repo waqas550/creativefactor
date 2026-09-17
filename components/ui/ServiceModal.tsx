@@ -27,6 +27,13 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
     event.stopPropagation();
   };
 
+  // Blur after activating: on touch devices the tapped button would otherwise
+  // keep focus (and its highlight) until somewhere else is tapped
+  const handleNavClick = (handler: () => void) => (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.blur();
+    handler();
+  };
+
   // A newly selected service (next/prev) starts scrolled to the top — the
   // description area is the element that actually scrolls inside the modal.
   // 'instant' overrides the global smooth scrolling (content is replaced, not
@@ -74,13 +81,13 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
         </div>
 
         <div className="modal-nav">
-          <button className="modal-nav-btn" onClick={onPrev} aria-label="Previous" type="button">
+          <button className="modal-nav-btn" onClick={handleNavClick(onPrev)} aria-label="Previous" type="button">
             <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-secondary" />
           </button>
-          <button className="modal-nav-btn modal-nav-btn--close" onClick={onClose} aria-label="Close" type="button">
+          <button className="modal-nav-btn modal-nav-btn--close" onClick={handleNavClick(onClose)} aria-label="Close" type="button">
             <FontAwesomeIcon icon={faXmark} className="text-2xl text-secondary" />
           </button>
-          <button className="modal-nav-btn" onClick={onNext} aria-label="Next" type="button">
+          <button className="modal-nav-btn" onClick={handleNavClick(onNext)} aria-label="Next" type="button">
             <FontAwesomeIcon icon={faChevronRight} className="text-xl text-secondary" />
           </button>
         </div>

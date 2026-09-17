@@ -426,10 +426,22 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.modal-nav-btn:hover {
-  background: rgba(0, 246, 255, 0.12);
+/* Hover glow only on devices with a real pointer: on touch, a tap would
+   otherwise leave the button stuck in its hover state */
+@media (hover: hover) {
+  .modal-nav-btn:hover {
+    background: rgba(0, 246, 255, 0.12);
+    box-shadow: 0 0 18px rgba(0, 246, 255, 0.35), inset 0 0 10px rgba(0, 246, 255, 0.18);
+    transform: scale(1.08);
+  }
+}
+
+.modal-nav-btn:focus {
+  outline: none;
+}
+
+.modal-nav-btn:focus-visible {
   box-shadow: 0 0 18px rgba(0, 246, 255, 0.35), inset 0 0 10px rgba(0, 246, 255, 0.18);
-  transform: scale(1.08);
 }
 
 .modal-nav-btn:active {
