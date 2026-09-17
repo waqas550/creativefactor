@@ -105,13 +105,10 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
       <div className="h-px w-full bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
     </nav>
 
-    {/* Mobile menu - full-screen overlay. Rendered OUTSIDE the nav because the
-        nav's backdrop-filter would otherwise become the containing block for
-        this fixed element and squeeze it into the navbar's box. The navbar
-        (with the X button) stays on top via its higher z-index. */}
+    {/* Mobile menu - full-screen overlay on phones (< 768px) */}
     {menuOpen && (
       <div
-        className="bg-gray-700 md:hidden fixed inset-0 z-30 overflow-y-auto flex flex-col pt-28 pb-8"
+        className="bg-gray-700 sm:hidden fixed inset-0 z-30 overflow-y-auto flex flex-col pt-28 pb-8"
         style={{
           backgroundImage: `linear-gradient(rgba(25, 25, 112, 0.2), rgba(25, 25, 112, 0.6)), url(${hfbg.src})`,
           backgroundSize: 'cover',
@@ -140,6 +137,47 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
       </div>
     )}
+
+    {/* Tablet side drawer - small panel sliding in from the right (768px-1059px) */}
+    <div
+      className={`hidden sm:block md:hidden fixed inset-0 z-30 ${menuOpen ? '' : 'pointer-events-none'}`}
+      aria-hidden={!menuOpen}
+    >
+      <div
+        className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
+        onClick={closeMenu}
+      />
+      <aside
+        className={`absolute right-0 top-0 h-full w-72 max-w-[85vw] overflow-y-auto flex flex-col pt-40 pb-8 transform transition-transform duration-300 ${
+          menuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        style={{
+          backgroundImage: `linear-gradient(rgba(25, 25, 112, 0.25), rgba(25, 25, 112, 0.65)), url(${hfbg.src})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="flex-1 flex flex-col">
+          {navLinks.map((link) => (
+            <Link
+              key={link.id}
+              href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
+              className={`block px-6 py-3 text-left text-lg border-b border-white/5 transition-colors ${
+                isActive(link.id)
+                  ? 'bg-secondary/15 text-secondary'
+                  : 'text-white hover:text-secondary hover:bg-white/5'
+              }`}
+              onClick={closeMenu}
+            >
+              {t(`navbar.${link.title}`)}
+            </Link>
+          ))}
+        </div>
+        <div className="flex items-center justify-center pb-6">
+          <LanguageSelector currentLocale={currentLocale} />
+        </div>
+      </aside>
+    </div>
   </>
   );
 };
