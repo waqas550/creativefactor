@@ -58,14 +58,14 @@ const EventCard = ({ title, image, onClick }: EventCardProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className={`relative ${isHovered ? 'no-mask' : 'with-mask'}`}>
+      <div className={`relative aspect-square ${isHovered ? 'no-mask' : 'with-mask'}`}>
         <Image
           className="object-cover object-center"
           src={image}
           alt={title}
           loading="lazy"
-          width={1024}
-          height={1025}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -158,7 +158,7 @@ const EventSection = () => {
             <h1 className="text-3xl text-white font-semibold mb-4">{t('title')}</h1>
             <p className="text-white text-lg mb-8">{renderRichText('des')}</p>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
               {eventsList.map((event) => (
                 <EventCard
                   key={event.id}
