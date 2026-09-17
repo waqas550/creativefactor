@@ -600,11 +600,7 @@ body {
   font-size: 1.33rem;
 }
 
-.active-link {
-  color: #00f6ff;
-  font-weight: 600;
-  border-bottom: 2px solid #00f6ff;
-}
+
 
 .nav-links .icon-link:hover {
   transform: scale(1.1);

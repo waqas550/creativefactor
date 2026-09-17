@@ -44,15 +44,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
   };
 
   return (
-    <nav
-      className="p-0 sticky top-0 z-40"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1))`,
-        backgroundSize: 'contain, cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }}
-    >
+    <nav className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30">
       <div className="flex items-center">
         <div className="flex items-center logo-container">
           <Link href={`/${currentLocale}`}>
@@ -73,13 +65,15 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Desktop navigation - pinned to the right, before the language selector */}
-        <div className="hidden md:flex items-center gap-4 xl:gap-7 text-lg xl:text-2xl ml-auto">
+        <div className="hidden md:flex items-center gap-1 text-[1.05rem] ml-auto">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
-              className={`hover:text-secondary transition-colors ${
-                isActive(link.id) ? 'active-link' : 'text-white'
+              className={`px-4 py-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60 ${
+                isActive(link.id)
+                  ? 'bg-secondary/15 text-secondary font-medium'
+                  : 'text-dimWhite hover:text-white hover:bg-white/5'
               }`}
             >
               {t(`navbar.${link.title}`)}
@@ -88,10 +82,13 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Social media icons and language selector */}
-        <div className="flex items-center space-x-4 hidden md:flex p-3">
+        <div className="hidden md:flex items-center p-3 ml-3 pl-5 border-l border-white/10">
           <LanguageSelector currentLocale={currentLocale} />
         </div>
       </div>
+
+      {/* Teal accent line along the bottom edge */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
 
       {/* Mobile menu */}
       {menuOpen && (
