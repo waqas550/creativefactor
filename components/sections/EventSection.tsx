@@ -24,7 +24,7 @@ import serv13 from '@/public/images/services/sserv13.jpg';
 import serv14 from '@/public/images/services/sserv14.jpg';
 import serv15 from '@/public/images/services/sserv15.jpg';
 import serv16 from '@/public/images/services/sserv16.jpg';
-import mask from '@/public/images/events/aevemask.png';
+import mask from '@/public/images/events/aevemask.webp';
 
 interface EventItem {
   id: number;

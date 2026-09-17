@@ -653,8 +653,8 @@ body {
 }
 
 .event-mask {
-  mask-image: url('/images/events/aevemask.png');
+  mask-image: url('/images/events/aevemask.webp');
   mask-size: cover;
-  -webkit-mask-image: url('/images/events/aevemask.png');
+  -webkit-mask-image: url('/images/events/aevemask.webp');
   -webkit-mask-size: cover;
 }
