@@ -20,9 +20,21 @@ interface ServiceModalProps {
 }
 
 const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const descriptionRef = React.useRef<HTMLDivElement>(null);
+
   const handleModalClick = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
+
+  // A newly selected service (next/prev) starts scrolled to the top — the
+  // description area is the element that actually scrolls inside the modal.
+  // 'instant' overrides the global smooth scrolling (content is replaced, not
+  // navigated, so the jump should be immediate).
+  useEffect(() => {
+    descriptionRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+    containerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [service.id]);
 
   // Close on Escape key + lock body scroll while modal is open
   useEffect(() => {
@@ -42,7 +54,7 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={service.title}>
-      <div className="modal-container" onClick={handleModalClick}>
+      <div ref={containerRef} className="modal-container" onClick={handleModalClick}>
         <div className="modal-header">
           <div
             className="modal-image"
@@ -56,7 +68,7 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
         </div>
 
         <div className="modal-content">
-          <div className="modal-description">
+          <div ref={descriptionRef} className="modal-description">
             {service.description}
           </div>
         </div>
