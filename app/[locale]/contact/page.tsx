@@ -100,8 +100,8 @@ export default function ContactPage() {
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left Column - Company Info */}
-            <div className="space-y-6">
+            {/* Left Column - Company Info (below the form on mobile) */}
+            <div className="space-y-6 order-2 lg:order-1">
               <div className="bg-primary/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-dimBlue h-full">
                 {/* Company Title */}
                 <div className="text-center lg:text-left mb-8">
@@ -168,8 +168,8 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right Column - Contact Form */}
-            <div className="bg-primary/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-dimBlue">
+            {/* Right Column - Contact Form (on top on mobile) */}
+            <div className="bg-primary/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-dimBlue order-1 lg:order-2">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-11 h-11 rounded-xl bg-secondary/10 border border-secondary/40 text-secondary flex items-center justify-center flex-shrink-0">
                   <FontAwesomeIcon icon={faPaperPlane} />
