@@ -1,0 +1,190 @@
+'use client';
+
+import React, { useState, ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import ServiceModal from '@/components/ui/ServiceModal';
+
+import bg from '@/public/images/bgsections.jpg';
+import event1 from '@/public/images/services/serv8.jpg';
+import event2 from '@/public/images/services/serv9.jpg';
+import event3 from '@/public/images/services/serv10.jpg';
+import event4 from '@/public/images/services/serv11.jpg';
+import event5 from '@/public/images/services/serv12.jpg';
+import event6 from '@/public/images/services/serv13.jpg';
+import event7 from '@/public/images/services/serv14.jpg';
+import event8 from '@/public/images/services/serv15.jpg';
+import event9 from '@/public/images/services/serv16.jpg';
+import serv8 from '@/public/images/services/sserv8.jpg';
+import serv9 from '@/public/images/services/sserv9.jpg';
+import serv10 from '@/public/images/services/sserv10.jpg';
+import serv11 from '@/public/images/services/sserv11.jpg';
+import serv12 from '@/public/images/services/sserv12.jpg';
+import serv13 from '@/public/images/services/sserv13.jpg';
+import serv14 from '@/public/images/services/sserv14.jpg';
+import serv15 from '@/public/images/services/sserv15.jpg';
+import serv16 from '@/public/images/services/sserv16.jpg';
+import mask from '@/public/images/events/aevemask.png';
+
+interface EventItem {
+  id: number;
+  title: string;
+  image: typeof event1;
+  imageh: typeof serv8;
+  description: ReactNode;
+}
+
+interface EventCardProps {
+  title: string;
+  image: typeof event1;
+  onClick: () => void;
+}
+
+const EventCard = ({ title, image, onClick }: EventCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  return (
+    <div
+      className="relative group overflow-hidden rounded-lg transition transform duration-300 hover:scale-105 hover:grayscale cursor-pointer"
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className={`relative ${isHovered ? 'no-mask' : 'with-mask'}`}>
+        <Image
+          className="object-cover object-center"
+          src={image}
+          alt={title}
+          loading="lazy"
+          width={1024}
+          height={1025}
+        />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
+        <p className="text-white text-2xl font-semibold text-center z-10 group-hover:opacity-100">
+          {title}
+        </p>
+      </div>
+      <style jsx>{`
+        .with-mask {
+          mask-image: url(${mask.src});
+          mask-size: cover;
+          -webkit-mask-image: url(${mask.src});
+          -webkit-mask-size: cover;
+        }
+        .no-mask {
+          mask-image: none;
+          -webkit-mask-image: none;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+const EventSection = () => {
+  const t = useTranslations('eve');
+
+  const renderRichDescription = (key: string) => {
+    return t.rich(key, {
+      div: (chunks) => <div>{chunks}</div>,
+      h2: (chunks) => <h2>{chunks}</h2>,
+      p: (chunks) => <p>{chunks}</p>,
+      strong: (chunks) => <strong>{chunks}</strong>
+    });
+  };
+
+  const renderRichText = (key: string) => {
+    return t.rich(key, {
+      strong: (chunks) => <strong>{chunks}</strong>
+    });
+  };
+
+  const eventsList: EventItem[] = [
+    { id: 1, title: t('title1'), image: event1, imageh: serv8, description: renderRichDescription('des1') },
+    { id: 2, title: t('title2'), image: event2, imageh: serv9, description: renderRichDescription('des2') },
+    { id: 3, title: t('title3'), image: event3, imageh: serv10, description: renderRichDescription('des3') },
+    { id: 4, title: t('title4'), image: event4, imageh: serv11, description: renderRichDescription('des4') },
+    { id: 5, title: t('title5'), image: event5, imageh: serv12, description: renderRichDescription('des5') },
+    { id: 6, title: t('title6'), image: event6, imageh: serv13, description: renderRichDescription('des6') },
+    { id: 7, title: t('title7'), image: event7, imageh: serv14, description: renderRichDescription('des7') },
+    { id: 8, title: t('title8'), image: event8, imageh: serv15, description: renderRichDescription('des8') },
+    { id: 9, title: t('title9'), image: event9, imageh: serv16, description: renderRichDescription('des9') },
+  ];
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
+
+  const openModal = (event: EventItem) => {
+    setSelectedEvent(event);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedEvent(null);
+  };
+
+  const nextEvent = () => {
+    if (!selectedEvent) return;
+    const currentIndex = eventsList.findIndex((event) => event.id === selectedEvent.id);
+    const nextIndex = (currentIndex + 1) % eventsList.length;
+    setSelectedEvent(eventsList[nextIndex]);
+  };
+
+  const prevEvent = () => {
+    if (!selectedEvent) return;
+    const currentIndex = eventsList.findIndex((event) => event.id === selectedEvent.id);
+    const prevIndex = (currentIndex - 1 + eventsList.length) % eventsList.length;
+    setSelectedEvent(eventsList[prevIndex]);
+  };
+
+  return (
+    <div>
+      <div className="py-16">
+        <div
+          className="container mx-auto px-4 sm:px-8 rounded-lg overflow-hidden shadow-lg bg-white p-6 sm:p-8 w-full sm:w-10/12 flex lg:flex-row flex-col-reverse items-center"
+          style={{ backgroundImage: `url(${bg.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <div className="flex flex-col items-center justify-center text-center">
+            <h1 className="text-3xl text-white font-semibold mb-4">{t('title')}</h1>
+            <p className="text-white text-lg mb-8">{renderRichText('des')}</p>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {eventsList.map((event) => (
+                <EventCard
+                  key={event.id}
+                  title={event.title}
+                  image={event.image}
+                  onClick={() => openModal(event)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      {modalOpen && selectedEvent && (
+        <ServiceModal
+          service={{
+            ...selectedEvent,
+            imageh: selectedEvent.imageh.src,
+            image: typeof selectedEvent.image === 'string' ? selectedEvent.image : selectedEvent.image.src,
+          }}
+          onClose={closeModal}
+          onNext={nextEvent}
+          onPrev={prevEvent}
+        />
+      )}
+    </div>
+  );
+};
+
+export default EventSection;
