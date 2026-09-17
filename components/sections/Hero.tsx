@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 
-import fbIcon from '@/public/images/icons/fbicon.png';
-import twitterIcon from '@/public/images/icons/twittericon.png';
-import instaIcon from '@/public/images/icons/instaicon.png';
-import youtubeIcon from '@/public/images/icons/youtubeicon.png';
+import fbIcon from '@/public/images/icons/fbicon.webp';
+import twitterIcon from '@/public/images/icons/twittericon.webp';
+import instaIcon from '@/public/images/icons/instaicon.webp';
+import youtubeIcon from '@/public/images/icons/youtubeicon.webp';
 
 // Plain URLs instead of static imports: 16 imported image modules slowed down
 // bundling/compiling without any benefit (dimensions are irrelevant with fill).

@@ -3,9 +3,9 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 
-import nextIcon from '@/public/images/icons/nexticon.png';
-import prevIcon from '@/public/images/icons/previousicon.png';
-import exitIcon from '@/public/images/icons/closeicon.png';
+import nextIcon from '@/public/images/icons/nexticon.webp';
+import prevIcon from '@/public/images/icons/previousicon.webp';
+import exitIcon from '@/public/images/icons/closeicon.webp';
 
 interface Service {
   id: number;
