@@ -9,6 +9,7 @@ import {
   faInstagram,
   faXTwitter,
   faYoutube,
+  faTiktok,
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,10 +17,11 @@ import logo from '@/public/images/logonav.svg';
 import hfbg from '@/public/images/hfbg.webp';
 
 const socialLinks = [
-  { icon: faFacebookF, href: '#', label: 'Facebook' },
-  { icon: faXTwitter, href: '#', label: 'X' },
-  { icon: faInstagram, href: '#', label: 'Instagram' },
-  { icon: faYoutube, href: '#', label: 'YouTube' },
+  { icon: faFacebookF, href: 'https://www.facebook.com/Roland.Gropp.ProEntertainment', label: 'Facebook' },
+  { icon: faXTwitter, href: 'https://www.x.com/roland_gropp', label: 'X' },
+  { icon: faInstagram, href: 'https://www.instagram.com/rolandgroppproentertainment/', label: 'Instagram' },
+  { icon: faYoutube, href: 'https://www.youtube.com/@RGProEntertainment0142', label: 'YouTube' },
+  { icon: faTiktok, href: 'https://tiktok.com/@creative.factor', label: 'TikTok' },
 ];
 
 const Footer = () => {
@@ -47,6 +49,8 @@ const Footer = () => {
             <a
               key={social.label}
               href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label={social.label}
               className="w-10 h-10 rounded-full border border-secondary/60 text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors"
             >
@@ -54,7 +58,7 @@ const Footer = () => {
             </a>
           ))}
           <a
-            href="#"
+            href="mailto:info@creative-factor.com"
             aria-label="Email"
             className="w-10 h-10 rounded-full border border-secondary/60 text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors"
           >

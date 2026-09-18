@@ -7,16 +7,18 @@ import fbIcon from '@/public/images/icons/fbicon.webp';
 import twitterIcon from '@/public/images/icons/twittericon.webp';
 import instaIcon from '@/public/images/icons/instaicon.webp';
 import youtubeIcon from '@/public/images/icons/youtubeicon.webp';
+import tiktokIcon from '@/public/images/icons/tiktokicon.webp';
 
 // Plain URLs instead of static imports: 16 imported image modules slowed down
 // bundling/compiling without any benefit (dimensions are irrelevant with fill).
 const images = Array.from({ length: 16 }, (_, i) => `/images/hero/cas${i + 1}.webp`);
 
 const socialLinks = [
-  { icon: fbIcon, href: 'https://facebook.com', label: 'Facebook' },
-  { icon: twitterIcon, href: 'https://x.com', label: 'X' },
-  { icon: instaIcon, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: youtubeIcon, href: 'https://youtube.com', label: 'YouTube' },
+  { icon: fbIcon, href: 'https://www.facebook.com/Roland.Gropp.ProEntertainment', label: 'Facebook' },
+  { icon: twitterIcon, href: 'https://www.x.com/roland_gropp', label: 'X' },
+  { icon: instaIcon, href: 'https://www.instagram.com/rolandgroppproentertainment/', label: 'Instagram' },
+  { icon: youtubeIcon, href: 'https://www.youtube.com/@RGProEntertainment0142', label: 'YouTube' },
+  { icon: tiktokIcon, href: 'https://tiktok.com/@creative.factor', label: 'TikTok' },
 ];
 
 const SocialLink = memo(({ icon, href, label }: { icon: StaticImageData; href: string; label: string }) => (

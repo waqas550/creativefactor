@@ -18,7 +18,7 @@ import {
   faCircleExclamation,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
-import { faFacebookF, faInstagram, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faXTwitter, faYoutube, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import PageHeader from '@/components/layout/Pageheader';
 
 export default function ContactPage() {
@@ -86,10 +86,11 @@ export default function ContactPage() {
   ];
 
   const socialLinks: { icon: IconDefinition; href: string; label: string }[] = [
-    { icon: faFacebookF, href: 'https://facebook.com', label: 'Facebook' },
-    { icon: faXTwitter, href: 'https://x.com', label: 'X' },
-    { icon: faInstagram, href: 'https://instagram.com', label: 'Instagram' },
-    { icon: faYoutube, href: 'https://youtube.com', label: 'YouTube' },
+    { icon: faFacebookF, href: 'https://www.facebook.com/Roland.Gropp.ProEntertainment', label: 'Facebook' },
+    { icon: faXTwitter, href: 'https://www.x.com/roland_gropp', label: 'X' },
+    { icon: faInstagram, href: 'https://www.instagram.com/rolandgroppproentertainment/', label: 'Instagram' },
+    { icon: faYoutube, href: 'https://www.youtube.com/@RGProEntertainment0142', label: 'YouTube' },
+    { icon: faTiktok, href: 'https://tiktok.com/@creative.factor', label: 'TikTok' },
   ];
 
   return (
