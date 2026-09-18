@@ -57,13 +57,7 @@ const Footer = () => {
               <FontAwesomeIcon icon={social.icon} />
             </a>
           ))}
-          <a
-            href="mailto:info@creative-factor.com"
-            aria-label="Email"
-            className="w-10 h-10 rounded-full border border-secondary/60 text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors"
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-          </a>
+
         </div>
 
         {/* Contact */}
