@@ -56,6 +56,7 @@ const SLIDES_LOADED_AHEAD = 2;
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
+  const heroRef = React.useRef<HTMLDivElement>(null);
 
   const next = useCallback(() => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -74,15 +75,33 @@ const Hero = () => {
     return () => document.removeEventListener('visibilitychange', onVisibilityChange);
   }, []);
 
+  // Pause while the hero is scrolled out of view: no crossfades, no new
+  // slide downloads while the visitor is reading lower sections.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setCarouselPaused(!entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    if (heroRef.current) observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Respect users who ask for less motion: show a static hero.
+  const reducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Monotonically non-decreasing: loaded layers stay mounted (cached by the
   // browser), so after one full loop nothing ever loads again.
-  const renderedCount = Math.min(images.length, currentImageIndex + 1 + SLIDES_LOADED_AHEAD);
+  const renderedCount = reducedMotion
+    ? 1
+    : Math.min(images.length, currentImageIndex + 1 + SLIDES_LOADED_AHEAD);
 
   return (
-    <div className="relative w-full h-svh overflow-hidden mt-[-6rem]">
+    <div ref={heroRef} className="relative w-full h-svh overflow-hidden mt-[-6rem]">
       <div className="absolute inset-0">
         {images.slice(0, renderedCount).map((src, index) => (
-          <HeroSlide key={src} src={src} active={index === currentImageIndex} priority={index === 0} />
+          <HeroSlide key={src} src={src} active={reducedMotion ? index === 0 : index === currentImageIndex} priority={index === 0} />
         ))}
       </div>
       {/* Dark gradient overlay for legibility */}

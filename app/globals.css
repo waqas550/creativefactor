@@ -606,8 +606,27 @@ body {
   transform: scale(1.1);
 }
 
+/* Static glow rendered once; only opacity animates (GPU-composited, no text
+   repaints). The old version re-rendered 8 stacked text-shadows every frame,
+   which was the main source of jank on the front page. */
 .text-neon {
-  animation: pulse 5s infinite alternate;
+  text-shadow: 0 0 20px rgba(241, 241, 241, 0.55), 0 0 60px rgba(92, 225, 230, 0.35);
+  animation: neon-breathe 5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-breathe {
+  from {
+    opacity: 0.86;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-neon {
+    animation: none;
+  }
 }
 
 @keyframes glow {
@@ -622,15 +641,6 @@ body {
   100% {
     transform: scale(1.5);
     opacity: 0.3;
-  }
-}
-
-@keyframes pulse {
-  from {
-    text-shadow: 0 0 10px #aa9797, 0 0 20px #aa9797, 0 0 30px #fff, 0 0 40px rgb(62, 62, 75), 0 0 70px rgb(60, 60, 80), 0 0 80px rgb(111, 116, 89), 0 0 100px rgb(0, 0, 0), 0 0 150px rgb(20, 20, 73);
-  }
-  to {
-    text-shadow: 0 0 20px #f1f1f1, 0 0 40px #f1f1f1, 0 0 60px #fff, 0 0 80px rgb(4, 4, 5), 0 0 140px rgb(8, 8, 8), 0 0 160px rgb(0, 0, 0), 0 0 200px rgb(87, 87, 107), 0 0 300px rgb(28, 28, 82);
   }
 }
 
