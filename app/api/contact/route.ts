@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 interface ContactFormData {
   name: string;
@@ -10,7 +11,10 @@ interface ContactFormData {
 export async function POST(request: NextRequest) {
   try {
     const body: ContactFormData = await request.json();
-    const { name, email, subject, message } = body;
+    const name = body.name?.trim();
+    const email = body.email?.trim();
+    const subject = body.subject?.trim();
+    const message = body.message?.trim();
 
     // Validate required fields
     if (!name || !email || !subject || !message) {
@@ -30,10 +34,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Sanitize inputs to prevent injection
-    const sanitizedName = name.trim().slice(0, 100);
-    const sanitizedEmail = email.trim().slice(0, 100);
-    const sanitizedSubject = subject.trim().slice(0, 200);
-    const sanitizedMessage = message.trim().slice(0, 5000);
+    const sanitizedName = name.slice(0, 100);
+    const sanitizedEmail = email.slice(0, 100);
+    const sanitizedSubject = subject.slice(0, 200);
+    const sanitizedMessage = message.slice(0, 5000);
 
     // Subject mapping for human-readable labels
     const subjectLabels: Record<string, string> = {
@@ -44,7 +48,14 @@ export async function POST(request: NextRequest) {
       other: 'Sonstiges',
     };
 
-    const subjectLabel = subjectLabels[sanitizedSubject] || sanitizedSubject;
+    const subjectLabel = subjectLabels[sanitizedSubject];
+
+    if (!subjectLabel) {
+      return NextResponse.json(
+        { error: 'Invalid subject' },
+        { status: 400 }
+      );
+    }
 
     // Create email content
     const emailContent = {
@@ -63,34 +74,25 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    // Here you would integrate with your email service provider
-    // Options: Resend, SendGrid, AWS SES, Nodemailer, etc.
-    // For now, we'll log the email content and return success
-    // In production, replace this with actual email sending logic
+    const smtpPort = Number(process.env.SMTP_PORT || 465);
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.strato.de',
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
 
-    console.log('Email to be sent:', emailContent);
-
-    // Example integration with Resend (recommended for Next.js):
-    // const { Resend } = require('resend');
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'Kontaktformular <noreply@creative-factor.com>',
-    //   to: 'info@creative-factor.com',
-    //   subject: emailContent.subject,
-    //   html: emailContent.html,
-    //   reply_to: sanitizedEmail,
-    // });
-
-    // Example integration with SendGrid:
-    // const sgMail = require('@sendgrid/mail');
-    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    // await sgMail.send({
-    //   to: 'info@creative-factor.com',
-    //   from: 'noreply@creative-factor.com',
-    //   subject: emailContent.subject,
-    //   html: emailContent.html,
-    //   replyTo: sanitizedEmail,
-    // });
+    await transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to: 'info@creative-factor.com',
+      replyTo: sanitizedEmail,
+      subject: emailContent.subject,
+      text: emailContent.text,
+      html: emailContent.html,
+    });
 
     return NextResponse.json(
       { message: 'Email sent successfully' },
