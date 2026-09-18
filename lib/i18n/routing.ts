@@ -7,8 +7,7 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: 'de',
 
-  // The company is based in Germany: always start new visitors on the German
-  // site instead of following the browser's Accept-Language header. Users can
-  // switch to English with the language badge.
-  localeDetection: false
+  // Detect a visitor's preferred language from the browser when no locale is
+  // included in the URL. German remains the fallback.
+  localeDetection: true
 });
