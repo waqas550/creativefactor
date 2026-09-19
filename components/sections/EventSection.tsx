@@ -58,14 +58,14 @@ const EventCard = ({ title, image, onClick }: EventCardProps) => {
       </div>
       <div className="desktop-card-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
-        <p className="text-white text-2xl font-semibold text-center z-10">
+        <p className="text-white text-base sm:text-2xl font-semibold text-center z-10">
           {title}
         </p>
       </div>
       {/* Always-visible caption on touch devices (no hover available) */}
       <div className="touch-caption absolute inset-x-0 bottom-0 z-10">
         <div className="bg-gradient-to-t from-black/90 via-black/50 to-transparent px-3 pb-3 pt-10 text-center">
-          <p className="text-white text-lg font-semibold">{title}</p>
+          <p className="text-white text-sm sm:text-lg font-semibold">{title}</p>
         </div>
       </div>
       <style jsx>{`
@@ -152,7 +152,7 @@ const EventSection = () => {
             <h2 className="text-3xl text-white font-semibold mb-4">{t('title')}</h2>
             <p className="text-white text-lg mb-8">{renderRichText('des')}</p>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3 w-full">
               {eventsList.map((event) => (
                 <EventCard
                   key={event.id}
