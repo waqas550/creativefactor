@@ -1626,6 +1626,7 @@ export default async function TermsPage({ params: { locale } }: { params: { loca
         >
           <div className="max-w-4xl mx-auto text-dimWhite [&_strong]:text-white [&_h2]:text-white [&_h3]:text-white [&_h4]:text-white [&_a]:text-secondary [&_a:hover]:underline">
             <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-white">{t('title')}</h2>
+            <p className="mb-8 text-center text-sm italic text-dimWhite">{t('lastUpdated')}</p>
             {content}
           </div>
         </div>

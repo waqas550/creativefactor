@@ -6,6 +6,7 @@ interface ContactFormData {
   email: string;
   subject: string;
   message: string;
+  website?: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -15,6 +16,11 @@ export async function POST(request: NextRequest) {
     const email = body.email?.trim();
     const subject = body.subject?.trim();
     const message = body.message?.trim();
+
+    // Honeypot field: real users never see or fill this field.
+    if (body.website?.trim()) {
+      return NextResponse.json({ message: 'Request accepted' }, { status: 200 });
+    }
 
     // Validate required fields
     if (!name || !email || !subject || !message) {

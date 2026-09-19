@@ -149,7 +149,7 @@ const EventSection = () => {
           style={{ backgroundImage: `url(${bg.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-3xl text-white font-semibold mb-4">{t('title')}</h1>
+            <h2 className="text-3xl text-white font-semibold mb-4">{t('title')}</h2>
             <p className="text-white text-lg mb-8">{renderRichText('des')}</p>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">

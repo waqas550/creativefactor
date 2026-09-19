@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 import bg from '@/public/images/bgsections.webp';
 import partn1 from '@/public/images/partners/partner1.webp';
-import partn2 from '@/public/images/partners/partner2.webp';
 
 interface Partner {
   id: number;
@@ -18,10 +17,7 @@ const PartnerSection = () => {
   const t = useTranslations();
 
   const partners: Partner[] = [
-    { id: 1, name: 'Partner 1', logo: partn1.src },
-    { id: 2, name: 'Partner 2', logo: partn2.src },
-    { id: 3, name: 'Partner 3', logo: partn2.src },
-    { id: 4, name: 'Partner 4', logo: partn2.src },
+    { id: 1, name: t('partn.clubLatina'), logo: partn1.src },
   ];
 
   return (
@@ -36,12 +32,13 @@ const PartnerSection = () => {
           }}
         >
           <div className="container mx-auto py-4 sm:py-8 w-full">
-            <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-white p-4 sm:p-8">
+            <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white p-4 sm:p-8">
               {t('partn.title')}
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+            <p className="mx-auto mb-8 max-w-2xl text-center text-dimWhite">{t('partn.description')}</p>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center justify-items-center">
               {partners.map((partner) => (
-                <div key={partner.id} className="flex items-center justify-center p-4">
+                <div key={partner.id} className="flex min-h-32 w-full max-w-xs items-center justify-center rounded-lg bg-white/90 p-4">
                   <Image
                     src={partner.logo}
                     alt={partner.name}

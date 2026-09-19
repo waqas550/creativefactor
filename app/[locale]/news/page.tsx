@@ -3,11 +3,11 @@ import PageHeader from '@/components/layout/Pageheader';
 import NewsSection from '@/components/sections/NewsSection';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'navbar' });
+  const t = await getTranslations({ locale, namespace: 'news' });
 
   return {
-    title: `${t('news')} - The Creative Factor`,
-    description: 'Latest news and updates from The Creative Factor',
+    title: `${t('newsTitle')} - The Creative Factor`,
+    description: t('metaDescription'),
   };
 }
 

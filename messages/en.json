@@ -106,19 +106,32 @@
   "terms": {
     "title": "General Terms and Conditions",
     "metaTitle": "Terms & Conditions - The Creative Factor",
-    "metaDescription": "General Terms and Conditions for Roland Gropp ProEntertainment services"
+    "metaDescription": "General Terms and Conditions for Roland Gropp ProEntertainment services",
+    "lastUpdated": "Last updated: September 19, 2026"
   },
   "privacy": {
     "title": "Privacy Policy",
     "metaTitle": "Privacy Policy - The Creative Factor",
-    "metaDescription": "Privacy Policy of Roland Gropp ProEntertainment - information on the processing of personal data in accordance with the GDPR."
+    "metaDescription": "Privacy Policy of Roland Gropp ProEntertainment - information on the processing of personal data in accordance with the GDPR.",
+    "lastUpdated": "Last updated: September 19, 2026"
   },
   "imprint": {
     "title": "Imprint",
-    "metaTitle": "Imprint - The Creative Factor"
+    "metaTitle": "Imprint - The Creative Factor",
+    "metaDescription": "Legal notice and provider information for Roland Gropp ProEntertainment.",
+    "lastUpdated": "Last updated: September 19, 2026"
   },
   "partn": {
-    "title": "Our Partners"
+    "title": "Our Partners",
+    "description": "We work with selected partners and event organizers to create memorable experiences.",
+    "clubLatina": "La Grande Fiesta Latina",
+    "metaDescription": "Partners and event organizers who help The Creative Factor create memorable experiences."
+  },
+  "news": {
+    "newsTitle": "News",
+    "title": "News",
+    "emptyText": "There are no new announcements at the moment. Updates about events and projects will be published here.",
+    "metaDescription": "Latest announcements and project information from The Creative Factor."
   },
   "contact": {
     "title": "Contact",

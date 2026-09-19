@@ -22,6 +22,7 @@ interface ServiceModalProps {
 const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const descriptionRef = React.useRef<HTMLDivElement>(null);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
 
   const handleModalClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -59,6 +60,40 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
     };
   }, [onClose, onPrev, onNext]);
 
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+
+    const handleTabKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || !containerRef.current) return;
+
+      const focusable = Array.from(
+        containerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute('disabled'));
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleTabKey);
+    return () => {
+      document.removeEventListener('keydown', handleTabKey);
+      previouslyFocused?.focus();
+    };
+  }, [onClose]);
+
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={service.title}>
       <div ref={containerRef} className="modal-container" onClick={handleModalClick}>
@@ -84,7 +119,7 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
           <button className="modal-nav-btn" onClick={handleNavClick(onPrev)} aria-label="Previous" type="button">
             <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-secondary" />
           </button>
-          <button className="modal-nav-btn modal-nav-btn--close" onClick={handleNavClick(onClose)} aria-label="Close" type="button">
+          <button ref={closeButtonRef} className="modal-nav-btn modal-nav-btn--close" onClick={handleNavClick(onClose)} aria-label="Close" type="button">
             <FontAwesomeIcon icon={faXmark} className="text-2xl text-secondary" />
           </button>
           <button className="modal-nav-btn" onClick={handleNavClick(onNext)} aria-label="Next" type="button">

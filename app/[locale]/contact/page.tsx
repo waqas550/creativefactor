@@ -28,6 +28,7 @@ export default function ContactPage() {
     email: '',
     subject: '',
     message: '',
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -53,7 +54,7 @@ export default function ContactPage() {
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', subject: '', message: '', website: '' });
       } else {
         setSubmitStatus('error');
       }
@@ -202,6 +203,16 @@ export default function ContactPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="sr-only"
+                />
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
