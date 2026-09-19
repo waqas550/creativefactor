@@ -66,7 +66,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
           </Link>
         </div>
 
-        <div className="md:hidden p-4 ml-auto">
+        <div className="xl:hidden p-4 ml-auto">
           <button
             onClick={toggleMenu}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
