@@ -23,6 +23,15 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
   const containerRef = React.useRef<HTMLDivElement>(null);
   const descriptionRef = React.useRef<HTMLDivElement>(null);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const onCloseRef = React.useRef(onClose);
+  const onPrevRef = React.useRef(onPrev);
+  const onNextRef = React.useRef(onNext);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+    onPrevRef.current = onPrev;
+    onNextRef.current = onNext;
+  }, [onClose, onPrev, onNext]);
 
   const handleModalClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -44,21 +53,38 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
     containerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [service.id]);
 
-  // Close on Escape key + lock body scroll while modal is open
+  // Keep keyboard handling and body scroll locking stable while the selected
+  // item changes inside the same modal.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onPrev();
-      if (e.key === 'ArrowRight') onNext();
+      if (e.key === 'Escape') onCloseRef.current();
+      if (e.key === 'ArrowLeft') onPrevRef.current();
+      if (e.key === 'ArrowRight') onNextRef.current();
     };
+
+    const scrollY = window.scrollY;
+    const previousBodyStyles = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
     document.addEventListener('keydown', handleKeyDown);
-    const prevOverflow = document.body.style.overflow;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = previousBodyStyles.overflow;
+      document.body.style.position = previousBodyStyles.position;
+      document.body.style.top = previousBodyStyles.top;
+      document.body.style.width = previousBodyStyles.width;
+      window.scrollTo(0, scrollY);
     };
-  }, [onClose, onPrev, onNext]);
+  }, []);
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
@@ -92,11 +118,19 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
       document.removeEventListener('keydown', handleTabKey);
       previouslyFocused?.focus({ preventScroll: true });
     };
-  }, [onClose]);
+  }, []);
 
   return (
-    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={service.title}>
-      <div ref={containerRef} className="modal-container" onClick={handleModalClick}>
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        ref={containerRef}
+        className="modal-container"
+        onClick={handleModalClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
         <div className="modal-header">
           <div
             className="modal-image"
@@ -104,25 +138,31 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
           >
             <div className="gradient-overlay absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
           </div>
-          <h3 className="modal-service-title">
+          <button
+            ref={closeButtonRef}
+            className="modal-close-btn"
+            onClick={handleNavClick(onClose)}
+            aria-label="Close service details"
+            type="button"
+          >
+            <FontAwesomeIcon icon={faXmark} className="text-xl text-secondary" />
+          </button>
+          <h3 id="modal-title" className="modal-service-title">
             {service.title}
           </h3>
         </div>
 
         <div className="modal-content">
-          <div ref={descriptionRef} className="modal-description">
+          <div ref={descriptionRef} id="modal-description" className="modal-description">
             {service.description}
           </div>
         </div>
 
         <div className="modal-nav">
-          <button className="modal-nav-btn" onClick={handleNavClick(onPrev)} aria-label="Previous" type="button">
+          <button className="modal-nav-btn" onClick={handleNavClick(onPrev)} aria-label="Previous service" type="button">
             <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-secondary" />
           </button>
-          <button ref={closeButtonRef} className="modal-nav-btn modal-nav-btn--close" onClick={handleNavClick(onClose)} aria-label="Close" type="button">
-            <FontAwesomeIcon icon={faXmark} className="text-2xl text-secondary" />
-          </button>
-          <button className="modal-nav-btn" onClick={handleNavClick(onNext)} aria-label="Next" type="button">
+          <button className="modal-nav-btn" onClick={handleNavClick(onNext)} aria-label="Next service" type="button">
             <FontAwesomeIcon icon={faChevronRight} className="text-xl text-secondary" />
           </button>
         </div>

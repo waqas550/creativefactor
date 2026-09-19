@@ -289,6 +289,7 @@ body {
   width: 100%;
   max-width: 100%;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   padding: 16px;
   border-radius: 0;
@@ -298,7 +299,8 @@ body {
   align-items: center;
   justify-content: space-between;
   min-width: 0;
-  overflow-y: auto;
+  min-height: 0;
+  overflow: hidden;
   overflow-x: hidden;
 }
 
@@ -367,6 +369,7 @@ body {
   position: relative;
   width: 100%;
   min-width: 0;
+  min-height: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -420,8 +423,26 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
-  padding: 12px 0 16px;
+  padding: 12px 0 max(16px, env(safe-area-inset-bottom));
   flex-shrink: 0;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 4, 15, 0.7);
+  border: 1px solid rgba(0, 246, 255, 0.35);
+  box-shadow: 0 0 12px rgba(0, 246, 255, 0.18);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modal-nav-btn {
@@ -449,12 +470,16 @@ body {
   }
 }
 
-.modal-nav-btn:focus {
-  outline: none;
+.modal-nav-btn:focus-visible,
+.modal-close-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+  box-shadow: 0 0 18px rgba(0, 246, 255, 0.35), inset 0 0 10px rgba(0, 246, 255, 0.18);
 }
 
-.modal-nav-btn:focus-visible {
-  box-shadow: 0 0 18px rgba(0, 246, 255, 0.35), inset 0 0 10px rgba(0, 246, 255, 0.18);
+.modal-nav-btn:focus:not(:focus-visible),
+.modal-close-btn:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .modal-nav-btn:active {
