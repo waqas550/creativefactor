@@ -70,7 +70,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
           <button
             onClick={toggleMenu}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className={`focus:outline-none w-10 h-10 rounded-full border-2 border-secondary text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors ${
+            className={`xl:hidden focus:outline-none w-10 h-10 rounded-full border-2 border-secondary text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors ${
               menuOpen ? 'transform scale-110' : ''
             }`}
           >
@@ -79,7 +79,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Desktop navigation - pinned to the right, before the language selector */}
-        <div className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-1 text-[1.05rem] ml-auto md:flex">
+        <div className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-1 text-[1.05rem] ml-auto xl:flex">
           {navLinks.map((link) => (
             <Link
               key={link.id}
@@ -96,7 +96,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Social media icons and language selector */}
-        <div className="hidden md:flex items-center p-3 ml-3 pl-5 border-l border-white/10">
+        <div className="hidden xl:flex items-center p-3 ml-3 pl-5 border-l border-white/10">
           <LanguageSelector currentLocale={currentLocale} />
         </div>
       </div>
@@ -140,7 +140,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
 
     {/* Tablet side drawer - small panel sliding in from the right (768px-1059px) */}
     <div
-      className={`hidden sm:block md:hidden fixed inset-0 z-30 ${menuOpen ? '' : 'pointer-events-none'}`}
+      className={`hidden sm:block xl:hidden fixed inset-0 z-30 ${menuOpen ? '' : 'pointer-events-none'}`}
       aria-hidden={!menuOpen}
     >
       <div
