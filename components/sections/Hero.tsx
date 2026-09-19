@@ -104,9 +104,9 @@ const Hero = () => {
           <HeroSlide key={src} src={src} active={reducedMotion ? index === 0 : index === currentImageIndex} priority={index === 0} />
         ))}
       </div>
-      {/* Dark gradient overlay for legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black opacity-0"></div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
+      {/* Stronger at the top so the hero copy stays readable over bright images. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-transparent"></div>
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white px-4">
         <div className="text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-7xl mb-4 font-semibold text-neon">
             We are The Creative Factor

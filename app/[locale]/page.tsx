@@ -8,10 +8,11 @@ import { getTranslations } from 'next-intl/server';
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'home' });
   const title = 'The Creative Factor';
+  const description = t.raw('aboutText').replace(/<[^>]*>/g, '').slice(0, 158);
 
   return {
     title,
-    description: t('aboutText').replace(/<[^>]*>/g, '').slice(0, 158),
+    description,
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     },
     openGraph: {
       title,
-      description: t('aboutText').replace(/<[^>]*>/g, '').slice(0, 158),
+      description,
       locale,
       type: 'website',
     },
