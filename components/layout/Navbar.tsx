@@ -59,10 +59,10 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
   return (
     <>
       <nav className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30">
-      <div className="flex items-center">
-        <div className="flex items-center logo-container">
+      <div className="flex min-w-0 items-center">
+        <div className="flex min-w-0 shrink items-center logo-container">
           <Link href={`/${currentLocale}`}>
-            <img src={logo.src} alt="Logo" className="logo" />
+            <img src={logo.src} alt="Logo" className="logo max-w-full" />
           </Link>
         </div>
 
@@ -79,12 +79,12 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Desktop navigation - pinned to the right, before the language selector */}
-        <div className="hidden md:flex items-center gap-1 text-[1.05rem] ml-auto">
+        <div className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-1 text-[1.05rem] ml-auto md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={`/${currentLocale}${link.id ? `/${link.id}` : ''}`}
-              className={`px-4 py-1.5 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60 ${
+              className={`min-w-0 px-2 py-1.5 text-center break-words rounded-full transition-colors lg:px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60 ${
                 isActive(link.id)
                   ? 'bg-secondary/15 text-secondary font-medium'
                   : 'text-dimWhite hover:text-white hover:bg-white/5'
