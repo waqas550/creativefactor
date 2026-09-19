@@ -17,6 +17,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .text-gradient {
   background: radial-gradient(
     64.18% 64.18% at 71.16% 35.69%,
@@ -269,6 +275,7 @@
   justify-content: center;
   z-index: 1000;
   padding: 0;
+  overflow-x: hidden;
 }
 
 @media (min-width: 769px) {
@@ -290,6 +297,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  min-width: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -313,6 +321,7 @@
 .modal-header {
   position: relative;
   width: 100%;
+  min-width: 0;
   height: 35vh;
   flex-shrink: 0;
 }
@@ -357,6 +366,7 @@
 .modal-content {
   position: relative;
   width: 100%;
+  min-width: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -367,7 +377,10 @@
   color: rgb(255, 255, 255);
   padding: 16px 8px;
   flex: 1;
+  min-width: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
   -webkit-overflow-scrolling: touch;
 }
 
