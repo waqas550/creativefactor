@@ -618,7 +618,7 @@ body {
 /* Height-based sizing keeps the SVG at its natural ratio — forcing a wider
    box stretched the artwork and added dead space on the left */
 .logo {
-  height: 8rem;
+  height: 6rem;
   width: auto;
 }
 

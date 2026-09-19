@@ -12,12 +12,11 @@ import hfbg from '@/public/images/hfbg.webp';
 import logo from '@/public/images/logonav.svg';
 
 const navLinks = [
-  { id: '', title: 'home' },
   { id: 'about', title: 'about' },
   { id: 'services', title: 'services' },
   { id: 'events', title: 'events' },
-  // { id: 'news', title: 'news' },        // hidden for now — coming later
-  // { id: 'partners', title: 'partners' }, // hidden for now — coming later
+  { id: 'news', title: 'news' },
+  { id: 'partners', title: 'partners' },
   { id: 'contact', title: 'contact' },
 ];
 
@@ -61,16 +60,16 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
       <nav className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/30">
       <div className="flex min-w-0 items-center">
         <div className="flex min-w-0 shrink items-center logo-container">
-          <Link href={`/${currentLocale}`}>
-            <img src={logo.src} alt="Logo" className="logo max-w-full" />
+          <Link href={`/${currentLocale}`} aria-label={t('navbar.home')}>
+            <img src={logo.src} alt="" className="logo max-w-full" />
           </Link>
         </div>
 
-        <div className="xl:hidden p-4 ml-auto">
+        <div className="lg:hidden p-4 ml-auto">
           <button
             onClick={toggleMenu}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className={`xl:hidden focus:outline-none w-10 h-10 rounded-full border-2 border-secondary text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors ${
+            className={`lg:hidden focus:outline-none w-10 h-10 rounded-full border-2 border-secondary text-secondary flex items-center justify-center hover:bg-secondary/10 transition-colors ${
               menuOpen ? 'transform scale-110' : ''
             }`}
           >
@@ -79,7 +78,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Desktop navigation - pinned to the right, before the language selector */}
-        <div className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-1 text-[1.05rem] ml-auto xl:flex">
+        <div className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-1 text-[1.05rem] ml-auto lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.id}
@@ -96,7 +95,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
         </div>
 
         {/* Social media icons and language selector */}
-        <div className="hidden xl:flex items-center p-3 ml-3 pl-5 border-l border-white/10">
+        <div className="hidden lg:flex items-center p-3 ml-3 pl-5 border-l border-white/10">
           <LanguageSelector currentLocale={currentLocale} />
         </div>
       </div>
@@ -105,7 +104,7 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
       <div className="h-px w-full bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />
     </nav>
 
-    {/* Mobile menu - full-screen overlay on phones (< 768px) */}
+    {/* Mobile menu - full-screen overlay below the sm breakpoint (< 768px) */}
     {menuOpen && (
       <div
         className="bg-gray-700 sm:hidden fixed inset-0 z-30 overflow-y-auto flex flex-col pt-28 pb-8"
@@ -138,9 +137,9 @@ const Navbar = ({ currentLocale }: NavbarProps) => {
       </div>
     )}
 
-    {/* Tablet side drawer - small panel sliding in from the right (768px-1059px) */}
+    {/* Tablet side drawer - slides in from the right between sm and lg (768px-1199px) */}
     <div
-      className={`hidden sm:block xl:hidden fixed inset-0 z-30 ${menuOpen ? '' : 'pointer-events-none'}`}
+      className={`hidden sm:block lg:hidden fixed inset-0 z-30 ${menuOpen ? '' : 'pointer-events-none'}`}
       aria-hidden={!menuOpen}
     >
       <div
