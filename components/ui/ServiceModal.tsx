@@ -63,25 +63,17 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
     };
 
     const scrollY = window.scrollY;
-    const previousBodyStyles = {
-      overflow: document.body.style.overflow,
-      position: document.body.style.position,
-      top: document.body.style.top,
-      width: document.body.style.width,
-    };
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousDocumentOverflow = document.documentElement.style.overflow;
 
     document.addEventListener('keydown', handleKeyDown);
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousBodyStyles.overflow;
-      document.body.style.position = previousBodyStyles.position;
-      document.body.style.top = previousBodyStyles.top;
-      document.body.style.width = previousBodyStyles.width;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousDocumentOverflow;
       window.scrollTo(0, scrollY);
     };
   }, []);
