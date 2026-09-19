@@ -62,7 +62,7 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
-    closeButtonRef.current?.focus();
+    closeButtonRef.current?.focus({ preventScroll: true });
 
     const handleTabKey = (event: KeyboardEvent) => {
       if (event.key !== 'Tab' || !containerRef.current) return;
@@ -90,7 +90,7 @@ const ServiceModal = ({ service, onClose, onPrev, onNext }: ServiceModalProps) =
     document.addEventListener('keydown', handleTabKey);
     return () => {
       document.removeEventListener('keydown', handleTabKey);
-      previouslyFocused?.focus();
+      previouslyFocused?.focus({ preventScroll: true });
     };
   }, [onClose]);
 
