@@ -41,24 +41,12 @@ interface EventCardProps {
 }
 
 const EventCard = ({ title, image, onClick }: EventCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   return (
     <div
-      className="relative group overflow-hidden rounded-lg transition transform duration-300 hover:scale-105 hover:grayscale cursor-pointer"
+      className="desktop-card-hover relative overflow-hidden rounded-lg transition transform duration-300 cursor-pointer"
       onClick={onClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
-      <div className={`relative aspect-square ${isHovered ? 'no-mask' : 'with-mask'}`}>
+      <div className="desktop-card-mask relative aspect-square">
         <Image
           className="object-cover object-center"
           src={image}
@@ -68,9 +56,9 @@ const EventCard = ({ title, image, onClick }: EventCardProps) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="desktop-card-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
-        <p className="text-white text-2xl font-semibold text-center z-10 group-hover:opacity-100">
+        <p className="text-white text-2xl font-semibold text-center z-10">
           {title}
         </p>
       </div>
@@ -81,7 +69,7 @@ const EventCard = ({ title, image, onClick }: EventCardProps) => {
         </div>
       </div>
       <style jsx>{`
-        .with-mask {
+        .desktop-card-mask {
           mask-image: url(${mask.src});
           mask-size: cover;
           -webkit-mask-image: url(${mask.src});

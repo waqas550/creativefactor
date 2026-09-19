@@ -55,24 +55,12 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ title, image, onClick }: ServiceCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   return (
     <div
-      className="relative group overflow-hidden rounded-lg transition transform duration-300 hover:scale-105 hover:grayscale cursor-pointer"
+      className="desktop-card-hover relative overflow-hidden rounded-lg transition transform duration-300 cursor-pointer"
       onClick={onClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
-      <div className={`relative w-full h-full ${isHovered ? 'no-mask' : 'with-mask'}`}>
+      <div className="desktop-card-mask relative w-full h-full">
         <Image
           className="w-full h-full object-cover"
           src={image}
@@ -80,9 +68,9 @@ const ServiceCard = ({ title, image, onClick }: ServiceCardProps) => {
           loading="lazy"
         />
       </div>
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="desktop-card-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
-        <p className="text-white text-2xl font-semibold text-center z-10 group-hover:opacity-100">
+        <p className="text-white text-2xl font-semibold text-center z-10">
           {title}
         </p>
       </div>
@@ -93,7 +81,7 @@ const ServiceCard = ({ title, image, onClick }: ServiceCardProps) => {
         </div>
       </div>
       <style jsx>{`
-        .with-mask {
+        .desktop-card-mask {
           mask-image: url(${mask.src});
           mask-size: cover;
           -webkit-mask-image: url(${mask.src});

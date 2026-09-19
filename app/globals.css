@@ -698,6 +698,24 @@ body {
   display: none;
 }
 
+/* Card hover effects are pointer-only so tapping a card on mobile does not
+   leave it in a hover state. */
+@media (hover: hover) and (pointer: fine) {
+  .desktop-card-hover:hover {
+    filter: grayscale(1);
+    transform: scale(1.05);
+  }
+
+  .desktop-card-hover:hover .desktop-card-overlay {
+    opacity: 1;
+  }
+
+  .desktop-card-hover:hover .desktop-card-mask {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
 @media (hover: none), (pointer: coarse) {
   .touch-caption {
     display: block;
